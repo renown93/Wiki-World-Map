@@ -1,0 +1,21 @@
+@import "./resets";
+@import "./components/explorer";
+@import "./components/map.scss";
+@import "./mixins";
+.app-conainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+@include for-phone-only {
+}
+@include for-tablet-portrait-up {
+}
+@include for-tablet-landscape-up {
+}
+@include for-desktop-up {
+}
+@include for-big-desktop-up {
+}

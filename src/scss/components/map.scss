@@ -1,0 +1,31 @@
+@import "../mixins";
+.loadingElement {
+  height: 100vh;
+}
+.containerElement {
+  height: 100vh;
+  width: 100%;
+}
+.map-container {
+  @include transitionAll();
+  height: 100vh;
+  width: 100%;
+  @include for-phone-only {
+    width: 100%;
+  }
+  @include for-tablet-portrait-up {
+    width: 45%;
+  }
+  @include for-tablet-landscape-up {
+    width: 65%;
+  }
+  @include for-desktop-up {
+    width: 70%;
+  }
+  @include for-big-desktop-up {
+    width: 80%;
+  }
+  &-toggled {
+    width: 100%;
+  }
+}

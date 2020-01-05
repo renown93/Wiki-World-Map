@@ -1,0 +1,76 @@
+@import "../mixins";
+/* 
+ explorer-container class and map-container class in map.scss folder compleate each other in size.
+App container is 100 vh - 100 vw and depending on the screen size it's children resizes themselves for full screen.
+ */
+.explorer-container {
+  @include transitionAll();
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  height: 100vh;
+
+  @include for-phone-only {
+    left: 0%;
+    width: 100%;
+  }
+  @include for-tablet-portrait-up {
+    left: 45%;
+    width: 55%;
+  }
+  @include for-tablet-landscape-up {
+    left: 65%;
+    width: 35%;
+  }
+  @include for-desktop-up {
+    left: 70%;
+    width: 30%;
+  }
+  @include for-big-desktop-up {
+    left: 80%;
+    width: 20%;
+  }
+  &-toggled {
+    left: 100%;
+    width: 55%;
+    @include for-phone-only {
+      width: 100%;
+    }
+  }
+}
+.explorer-toggle-button {
+  @include transitionAll();
+  @include for-phone-only {
+    left: 0px;
+  }
+  &-toggled {
+    left: -45px;
+    .arrow {
+      @include transitionAll();
+      transform: rotate(-180deg);
+    }
+  }
+  position: absolute;
+  margin: 0;
+  left: -45px;
+  top: 0.5%;
+  height: 40px;
+  width: 37px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  margin-bottom: 2px;
+}
