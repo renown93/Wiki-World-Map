@@ -1,13 +1,13 @@
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLocationLink } from "../../store/actions/explorer";
 import { toggleExplprerWithPayload } from "../../store/actions/main";
 import {
   changeLoadingState,
   setLocationsForPicker
 } from "../../store/actions/locationData";
-require("dotenv").config();
+
 const PointerLocationPicker = props => {
   const dispatch = useDispatch();
   return (

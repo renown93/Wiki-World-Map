@@ -30,7 +30,6 @@ export const getPlaces = async (lat, lng) => {
   const result = geocodeResults.results[1].address_components.reduce(
     async (previousPromise, { long_name }) => {
       const accumulator = await previousPromise;
-      const current = await long_name;
       try {
         const { data } = await axios
           .get(`https://en.wikipedia.org/api/rest_v1/page/summary/${long_name}`)

@@ -25,8 +25,15 @@ const Explorer = props => {
       <header className="header">
         <h1>Wiki World Map</h1>
       </header>
+
       {link ? (
-        <iframe src={link} width="100%" height="90%" frameborder="0"></iframe>
+        <iframe
+          title="wiki"
+          src={link}
+          width="100%"
+          height="90%"
+          frameborder="0"
+        ></iframe>
       ) : (
         <Welcome />
       )}

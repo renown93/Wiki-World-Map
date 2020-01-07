@@ -4,7 +4,6 @@ import Explorer from "./components/explorer";
 import "./scss/main.scss";
 import { getMapURL } from "./utils/apiCalls";
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const toggleExplorer = useSelector(state => state.main.toggleExplorer);
