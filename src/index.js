@@ -6,11 +6,17 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import Main from "./store/reducers/Main";
+import main from "./store/reducers/Main";
+import locationData from "./store/reducers/locationData";
+import explorer from "./store/reducers/explorer";
+require("dotenv").config();
 
 const rootReducer = combineReducers({
-  main: Main
+  main,
+  locationData,
+  explorer
 });
+
 const store = createStore(rootReducer, composeWithDevTools());
 ReactDOM.render(
   <Provider store={store}>

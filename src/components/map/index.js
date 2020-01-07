@@ -1,38 +1,54 @@
 import React from "react";
-import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
-import { getTimezone, getSunrise } from "../../utils/apiCalls";
-import { generateNightOrDayResponse } from "../../utils/functions";
+
+import { getPlaces } from "../../utils/apiCalls";
+import GoogleMapReact from "google-map-react";
 import mapStyle from "./mapstyle";
+import Pointer from "./Pointer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPointer,
+  setLocationsForPicker
+} from "../../store/actions/locationData";
 
 function Map(props) {
-  // prettier-ignore
-  const onClick = async ({ latLng }) => {
-    const {data: { results: { sunrise, sunset } } } = await getSunrise(latLng.lat(), latLng.lng());
-    const {data: { timeZoneId } } = await getTimezone(latLng.lat(), latLng.lng());
-    const result = generateNightOrDayResponse(sunrise, sunset, timeZoneId)   
-    console.log(result)
-  };
+  const dispatch = useDispatch();
+  //selectors
+  const coordinates = useSelector(state => {
+    return { lat: state.locationData.lat, lng: state.locationData.lng };
+  });
 
+  //
+
+  const onClick = async ({ lat, lng }) => {
+    dispatch(setPointer({ lat, lng, isLoading: true }));
+    dispatch(setLocationsForPicker(await getPlaces(lat, lng)));
+    console.log(await getPlaces(lat, lng));
+  };
   return (
-    <>
-      <GoogleMap
-        onClick={event => onClick(event)}
-        defaultZoom={3}
-        defaultCenter={{ lat: 44.433818, lng: 26.105616 }}
-        defaultOptions={{
-          styles: mapStyle,
-          streetViewControl: false,
-          scaleControl: false,
-          mapTypeControl: false,
-          panControl: false,
-          zoomControl: true,
-          rotateControl: false,
-          fullscreenControl: false
-        }}
-        disableDefaultUI
-      />
-    </>
+    <GoogleMapReact
+      onClick={onClick}
+      bootstrapURLKeys={{
+        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        language: "en"
+      }}
+      defaultCenter={{ lat: 44.433818, lng: 26.105616 }}
+      defaultZoom={3}
+      options={{
+        styles: mapStyle,
+        streetViewControl: false,
+        scaleControl: false,
+        mapTypeControl: false,
+        panControl: false,
+        zoomControl: true,
+        rotateControl: false,
+        fullscreenControl: false
+      }}
+    >
+      {coordinates.lat ? (
+        <Pointer lat={coordinates.lat} lng={coordinates.lng} />
+      ) : null}
+    </GoogleMapReact>
   );
 }
 
-export default withScriptjs(withGoogleMap(Map));
+export default Map;
