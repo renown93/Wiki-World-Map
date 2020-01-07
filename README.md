@@ -1,4 +1,4 @@
-# Wiki Wrold Map
+# Wiki World Map
 [www.wikiworldmap.org](https://www.wikiworldmap.org/)  
 
 ## About
