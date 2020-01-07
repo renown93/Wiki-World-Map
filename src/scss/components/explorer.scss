@@ -119,7 +119,10 @@ App container is 100 vh - 100 vw and depending on the screen size it's children 
     align-items: center;
   }
   text-align: center;
-
+  .license {
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
   @include for-phone-only {
     .title {
       margin-top: 3rem;
