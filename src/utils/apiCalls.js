@@ -16,7 +16,10 @@ export const geocodeAPI = async (lat, lng) =>
   );
 export const getPlaces = async (lat, lng) => {
   const geocodeResults = await (await geocodeAPI(lat, lng)).data;
-  if (geocodeResults.status !== "OK") {
+  if (
+    geocodeResults.status !== "OK" ||
+    geocodeResults.results[1] === undefined
+  ) {
     return [
       {
         title: "Location not found",
@@ -26,7 +29,6 @@ export const getPlaces = async (lat, lng) => {
       }
     ];
   }
-  console.log(geocodeResults);
   const result = geocodeResults.results[1].address_components.reduce(
     async (previousPromise, { long_name }) => {
       const accumulator = await previousPromise;

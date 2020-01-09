@@ -11,7 +11,7 @@ import locationData from "./store/reducers/locationData";
 import explorer from "./store/reducers/explorer";
 require("dotenv").config();
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   main,
   locationData,
   explorer

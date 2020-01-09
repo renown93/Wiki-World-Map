@@ -22,7 +22,6 @@ function Map(props) {
   const onClick = async ({ lat, lng }) => {
     dispatch(setPointer({ lat, lng, isLoading: true }));
     dispatch(setLocationsForPicker(await getPlaces(lat, lng)));
-    console.log(await getPlaces(lat, lng));
   };
   return (
     <GoogleMapReact
