@@ -123,7 +123,13 @@ App container is 100 vh - 100 vw and depending on the screen size it's children 
     margin-bottom: 2rem;
     padding: 1rem;
   }
+  .go-to-map-button {
+    display: none;
+  }
   @include for-phone-only {
+    .go-to-map-button {
+      display: inline;
+    }
     .title {
       margin-top: 3rem;
       text-align: center;

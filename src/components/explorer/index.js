@@ -7,7 +7,6 @@ const Explorer = props => {
   const toggleExplorer = useSelector(state => state.main.toggleExplorer);
   const link = useSelector(state => state.explorer.link);
   const dispatch = useDispatch();
-  console.log(props);
   return (
     <div
       className={`explorer-container ${

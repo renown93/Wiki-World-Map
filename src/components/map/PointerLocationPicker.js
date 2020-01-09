@@ -18,6 +18,7 @@ const PointerLocationPicker = props => {
         <div className="pointer-container">
           {props.locations.map(location => (
             <div
+              key={location.title}
               className="pointer-element"
               onClick={e => {
                 e.stopPropagation();

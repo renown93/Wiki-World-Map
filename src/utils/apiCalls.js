@@ -23,7 +23,7 @@ export const getPlaces = async (lat, lng) => {
     return [
       {
         title: "Location not found",
-        descripion: "There are no results for this location",
+        description: "There are no results for this location",
         coordinates: { lat: 0, lon: 0 },
         page: null
       }
