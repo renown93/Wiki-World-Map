@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleSettings } from "../../store/actions/main";
+import { toggleSettings } from "../../store/actions/explorer";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Welcome from "./Welcome";
 const Explorer = props => {
-  const toggleExplorer = useSelector(state => state.main.toggleExplorer);
+  const toggleExplorer = useSelector(state => state.explorer.toggleExplorer);
   const link = useSelector(state => state.explorer.link);
   const dispatch = useDispatch();
   return (
     <div
+      test-id="explorer-container"
       className={`explorer-container ${
         toggleExplorer === false ? "explorer-container-toggled" : ""
       }`}
@@ -39,4 +40,4 @@ const Explorer = props => {
     </div>
   );
 };
-export default Explorer;
+export default React.memo(Explorer);

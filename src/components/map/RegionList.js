@@ -1,15 +1,27 @@
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useDispatch } from "react-redux";
-import { setLocationLink } from "../../store/actions/explorer";
-import { toggleExplprerWithPayload } from "../../store/actions/main";
+import { useDispatch, batch } from "react-redux";
+import {
+  toggleExplprerWithPayload,
+  setLocationLink
+} from "../../store/actions/explorer";
 import {
   changeLoadingState,
-  setLocationsForPicker
+  setRegionList
 } from "../../store/actions/locationData";
 
 const PointerLocationPicker = props => {
   const dispatch = useDispatch();
+
+  const setLocation = (e, location) => {
+    e.stopPropagation();
+    batch(() => {
+      dispatch(setLocationLink(location.page));
+      dispatch(changeLoadingState(false));
+      dispatch(setRegionList(false));
+      dispatch(toggleExplprerWithPayload(true));
+    });
+  };
   return (
     <>
       {props.isLoading ? (
@@ -21,11 +33,7 @@ const PointerLocationPicker = props => {
               key={location.title}
               className="pointer-element"
               onClick={e => {
-                e.stopPropagation();
-                dispatch(setLocationLink(location.page));
-                dispatch(changeLoadingState(false));
-                dispatch(setLocationsForPicker(false));
-                dispatch(toggleExplprerWithPayload(true));
+                setLocation(e, location);
               }}
             >
               <h1 className="title"> {location.title}</h1>
@@ -37,4 +45,4 @@ const PointerLocationPicker = props => {
     </>
   );
 };
-export default PointerLocationPicker;
+export default React.memo(PointerLocationPicker);

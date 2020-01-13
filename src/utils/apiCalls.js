@@ -14,7 +14,7 @@ export const geocodeAPI = async (lat, lng) =>
   axios.get(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&language=en`
   );
-export const getPlaces = async (lat, lng) => {
+export const getRegions = async (lat, lng) => {
   const geocodeResults = await (await geocodeAPI(lat, lng)).data;
   if (
     geocodeResults.status !== "OK" ||

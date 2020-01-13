@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const generateNightOrDayResponse = (sunrise, sunset, timeZoneId) => {
   /*
   Function Description:
@@ -26,4 +28,38 @@ export const generateNightOrDayResponse = (sunrise, sunset, timeZoneId) => {
   return localDate > sunrizeDate && localDate > sunSetDate
     ? " it's night time"
     : "It's morning time";
+};
+export const adressReducer = async result => {
+  result.results[1].address_components.reduce(
+    async (previousPromise, { long_name }) => {
+      const accumulator = await previousPromise;
+      try {
+        const { data } = await axios
+          .get(`https://en.wikipedia.org/api/rest_v1/page/summary/${long_name}`)
+          .catch(err => {});
+        if (data.coordinates) {
+          //object destructuring
+          const {
+            title,
+            description,
+            coordinates,
+            content_urls: {
+              mobile: { page }
+            }
+          } = data;
+          //object destructuring end
+
+          //Push the value to the accumulator if the value is not duplicate
+          if (accumulator.filter(value => value.title === title) == false) {
+            accumulator.push({ title, description, coordinates, page });
+          }
+        }
+      } catch (err) {
+        //pass
+      }
+
+      return accumulator;
+    },
+    Promise.resolve([])
+  );
 };

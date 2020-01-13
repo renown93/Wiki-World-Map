@@ -1,6 +1,6 @@
 import React from "react";
 import RoomIcon from "@material-ui/icons/Room";
-import PointerLocationPicker from "./PointerLocationPicker";
+import RegionList from "./RegionList";
 import { useSelector } from "react-redux";
 
 const Pointer = props => {
@@ -12,10 +12,10 @@ const Pointer = props => {
         <RoomIcon fontSize="large" />
       </div>
       {locations || isLoading ? (
-        <PointerLocationPicker isLoading={isLoading} locations={locations} />
+        <RegionList isLoading={isLoading} locations={locations} />
       ) : null}
     </>
   );
 };
 
-export default Pointer;
+export default React.memo(Pointer);

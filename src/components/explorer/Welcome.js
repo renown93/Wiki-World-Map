@@ -2,7 +2,7 @@ import React from "react";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
-import { toggleSettings } from "../../store/actions/main";
+import { toggleSettings } from "../../store/actions/explorer";
 
 const Welcome = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,6 @@ const Welcome = () => {
       <p className="about">
         Press anywhere on the map and find more about the location!
       </p>
-
       <Button
         onClick={() => dispatch(toggleSettings())}
         className="go-to-map-button"
@@ -47,4 +46,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default React.memo(Welcome);

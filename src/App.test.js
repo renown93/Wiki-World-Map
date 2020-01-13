@@ -4,14 +4,29 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { rootReducer } from "./index";
 import { createStore } from "redux";
+import { getElementByTestId } from "./utils/testUtils";
 describe("Map component", () => {
-  it("it should render without errors", () => {
-    const component = mount(
+  let component;
+  beforeEach(() => {
+    component = mount(
       <Provider store={createStore(rootReducer)}>
         <App />
       </Provider>
     );
-    const wrapper = component.find(".app-conainer");
+  });
+
+  it("it should render without errors", () => {
+    const wrapper = getElementByTestId(component, "app-container");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it("should have a map component", () => {
+    const wrapper = getElementByTestId(component, "map");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it("should have an explorer component", () => {
+    const wrapper = getElementByTestId(component, "explorer");
     expect(wrapper.length).toBe(1);
   });
 });
