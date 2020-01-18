@@ -1,4 +1,5 @@
 import axios from "axios";
+import { reduceAsync } from "./functions";
 export const getTimezone = async (lat, lng) =>
   axios.get(`https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${lng}&timestamp=1458000000&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
 `);
@@ -16,50 +17,21 @@ export const geocodeAPI = async (lat, lng) =>
   );
 export const getRegions = async (lat, lng) => {
   const geocodeResults = await (await geocodeAPI(lat, lng)).data;
-  if (
-    geocodeResults.status !== "OK" ||
-    geocodeResults.results[1] === undefined
-  ) {
-    return [
-      {
-        title: "Location not found",
-        description: "There are no results for this location",
-        coordinates: { lat: 0, lon: 0 },
-        page: null
-      }
-    ];
+  const locationNotFound = [
+    {
+      title: "Location not found",
+      description: "There are no results for this location",
+      coordinates: { lat: 0, lon: 0 },
+      page: null
+    }
+  ];
+  if (geocodeResults.results[1] === undefined) {
+    return locationNotFound;
   }
   const result = geocodeResults.results[1].address_components.reduce(
-    async (previousPromise, { long_name }) => {
-      const accumulator = await previousPromise;
-      try {
-        const { data } = await axios
-          .get(`https://en.wikipedia.org/api/rest_v1/page/summary/${long_name}`)
-          .catch(err => {});
-        if (data.coordinates) {
-          //object destructuring
-          const {
-            title,
-            description,
-            coordinates,
-            content_urls: {
-              mobile: { page }
-            }
-          } = data;
-          //object destructuring end
-
-          //Push the value to the accumulator if the value is not duplicate
-          if (accumulator.filter(value => value.title === title) == false) {
-            accumulator.push({ title, description, coordinates, page });
-          }
-        }
-      } catch (err) {
-        //pass
-      }
-
-      return accumulator;
-    },
+    reduceAsync,
     Promise.resolve([])
   );
-  return result;
+  console.log(result);
+  return (await result) == false ? locationNotFound : result;
 };

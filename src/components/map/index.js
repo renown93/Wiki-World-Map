@@ -9,6 +9,7 @@ import {
   setRegionList,
   changeMapCenter
 } from "../../store/actions/locationData";
+import { isNumber } from "../../utils/functions";
 
 function Map(props) {
   const dispatch = useDispatch();
@@ -71,8 +72,8 @@ function Map(props) {
         fullscreenControl: false
       }}
     >
-      {// if both lat and lng is not a number create a marker. Otherwise return null
-      !isNaN(params.lat) && !isNaN(params.lng) ? (
+      {// if both lat and lng is a number create a marker. Otherwise return null
+      isNumber(params.lat) && isNumber(params.lng) ? (
         <Marker lat={params.lat} lng={params.lng} />
       ) : null}
     </GoogleMapReact>
