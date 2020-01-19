@@ -3,6 +3,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
 import { toggleSettings } from "../../store/actions/explorer";
+import NavigatoButtons from "./navigatorButtons";
 
 const Welcome = () => {
   const dispatch = useDispatch();

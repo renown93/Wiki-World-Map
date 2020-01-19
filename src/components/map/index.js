@@ -69,7 +69,8 @@ function Map(props) {
         panControl: false,
         zoomControl: true,
         rotateControl: false,
-        fullscreenControl: false
+        fullscreenControl: false,
+        gestureHandling: "greedy"
       }}
     >
       {// if both lat and lng is a number create a marker. Otherwise return null
